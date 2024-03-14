@@ -4,38 +4,42 @@ import java.lang.NumberFormatException
 
 fun main() {
 
-    var select: Int = 0
-
-    var coffee = Coffee()
-    var frappe = Frappe()
-    var smoothie = Smoothie()
-    var tea = Tea()
-
-    while(select != 4) {
+    while (true) {
         try {
+            println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요")
             println("")
-            println("안녕하세요! 주문하실 메뉴의 번호를 선택해주세요^^")
-            println("1. Coffee")
-            println("2. Frappe")
-            println("3. Smoothie")
-            println("4. Tea")
-            println("5. 종료")
-            select = readln().toInt()
-        } catch (e:NumberFormatException) {
-            println("")
-            println("번호로 입력해주세요 ㅠㅠ")
-            continue
-        }
-        try {
-            when (select) {
-                1 -> coffee.order(select.toString())
-                2 -> frappe.order(select.toString())
-                3 -> smoothie.order(select.toString())
-                4 -> tea.order(select.toString())
-                5 -> break
+            println(
+                "[ SHAKESHACK MENU ]\n" +
+                        "1. Burgers         | 앵거스 비프 통살을 다져만든 버거\n" +
+                        "2. Frozen Custard  | 매장에서 신선하게 만드는 아이스크림\n" +
+                        "3. Drinks          | 매장에서 직접 만드는 음료\n" +
+                        "4. Beer            | 뉴욕 브루클린 브루어리에서 양조한 맥주\n" +
+                        "0. Exit            | 프로그램 종료" +
+                        "\n" +
+                        "\n" +
+                        "[ ORDER MENU ]\n" +
+                        "5. Order           | 장바구니를 확인 후 주문합니다.\n" +
+                        "6. Cancel          | 진행중인 주문을 취소합니다."
+            )
+            var pick = readln().toInt()
+            val cartMenu = Cart()
+
+            when (pick) {
+                1 -> Burgers().displayInfo()
+                2 -> FrozenCustard().displayInfo()
+                3 -> Drinks().displayInfo()
+                4 -> Beer().displayInfo()
+                5 -> cartMenu.displayCart()
+                6 -> cartMenu.cartMenu.clear()
+                0 -> {
+                    println("프로그램을 종료합니다.")
+                    break
+                } else -> println("잘못된 번호입니다 다시 입력해주세요.")
             }
         } catch (e: NumberFormatException) {
-            continue
+            println("숫자로 입력해주세요.")
+            println("")
+            return continue
         }
     }
 }
